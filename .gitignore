@@ -1,0 +1,14 @@
+# course slides & personal questions
+*.pdf
+*.jpg
+*.png
+*.txt 
+
+# intermediate output files
+*.asm 
+*.lst 
+*.rst 
+*.sym 
+*.map 
+*.mem
+*.lk

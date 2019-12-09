@@ -1,8 +1,8 @@
 #include <8051.h>
 #include "cooperative.h"
 
-__data __at (0x3D) char buf;
-__data __at (0x3E) char ch;
+__data __at (0x3E) char buf;
+__data __at (0x3F) char ch;
 
 void Producer(void){
 	ch = 'A';

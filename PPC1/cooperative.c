@@ -3,11 +3,11 @@
 
 __data __at (0x30) char sp[MAXTHREADS];
 __data __at (0x34) ThreadID curThread;
-__data __at (0x35) char bitmap;
-__data __at (0x36) ThreadID newThread;
-__data __at (0x37) char i;
-__data __at (0x38) char tmp;
-__data __at (0x39) char tmp2;
+__data __at (0x35) char bitmap[MAXTHREADS];
+__data __at (0x39) ThreadID newThread;
+__data __at (0x3A) char i;
+__data __at (0x3B) char tmp;
+__data __at (0x3C) char tmp2;
 
 #define SAVESTATE \
 	{ \
@@ -36,21 +36,21 @@ __data __at (0x39) char tmp2;
 extern void main(void);
 
 void Bootstrap(void) {
-	bitmap = 0b0000;
+	bitmap[0] = bitmap[1] = bitmap[2] = bitmap[3] = 0b0000;
 	curThread = ThreadCreate(main);
 	RESTORESTATE;
 }
 
 ThreadID ThreadCreate(FunctionPtr fp) {
 	
-	if(bitmap == 0b1111) return -1;
 	for(i=0; i<MAXTHREADS; i++) {
-		if(((bitmap) & (0b0001<<i)) == 0) {
-			bitmap |= (0b0001<<i);
+		if(bitmap[i] == 0) {
+			bitmap[i] = 1;
 			newThread = i;
 			break;
 		}
 	}
+	if(i == MAXTHREADS) return -1;
 	tmp = SP;
 	SP = 0x3F + (i<<4);
 	__asm
@@ -77,17 +77,17 @@ ThreadID ThreadCreate(FunctionPtr fp) {
 void ThreadYield(void) {
 	SAVESTATE;
 	do {
-		curThread = (curThread == MAXTHREADS-1) ? 0 : curThread+1;
-		if(((bitmap) & (0b0001<<curThread))) break;
+		curThread = (curThread == 3) ? 0 : curThread+1;
+		break;
 	} while (1);
 	RESTORESTATE;
 }
 
 void ThreadExit(void) {
-	bitmap &= ~(1<<curThread);
+	bitmap[curThread] = 0;
 	do {
 		curThread = (curThread == 3) ? 0 : curThread+1;
-		if(bitmap & (1<<curThread)) break;
+		if(bitmap[curThread] == 1) break;
 	} while (1);
 	RESTORESTATE;
 }

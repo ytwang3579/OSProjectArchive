@@ -22,9 +22,10 @@ void Consumer(void) {
 	while (1) {
 		while(buf == '\0') ThreadYield();
 		SBUF = buf;
+		buf = '\0';
 		while(!TI) ThreadYield();
 		TI = 0;
-		buf = '\0';
+		
 	}
 }
 

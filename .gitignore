@@ -12,3 +12,4 @@
 *.map 
 *.mem
 *.lk
+.vscode*

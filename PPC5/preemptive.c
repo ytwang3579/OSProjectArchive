@@ -54,7 +54,7 @@ void Bootstrap(void) {
 
 ThreadID ThreadCreate(FunctionPtr fp) {
 	if(bitmap == 0b1111) return -1;
-	__critical{
+	EA=0;
 		for(i=0; i<MAXTHREADS; i++) {
 			if(((bitmap) & (0b0001<<i)) == 0) {
 				bitmap |= (0b0001<<i);
@@ -82,7 +82,7 @@ ThreadID ThreadCreate(FunctionPtr fp) {
 		
 		sp[newThread] = SP;
 		SP = tmp;
-	}
+	EA=1;
 	return newThread;
 }
 
@@ -98,7 +98,7 @@ void ThreadYield(void) {
 }
 
 void ThreadExit(void) {
-	__critical{
+	EA=0;
 		__asm 
 		mov A, #0
 		push A 
@@ -117,7 +117,7 @@ void ThreadExit(void) {
 			if(bitmap & checkAlive[curThread]) break;
 		} while (1);
 		RESTORESTATE;
-	}
+	EA=1;
 }
 
 void myTimer0Handler(void) {
@@ -161,7 +161,7 @@ void myTimer0Handler(void) {
 
 void delay(unsigned char n) {
 	delayid[curThread] = now + n;
-	while(now != delayid[curThread]) EA=1;
+	while(now != delayid[curThread]);
 	delayid[curThread] = 0;
 }
 

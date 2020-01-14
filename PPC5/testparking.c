@@ -17,7 +17,7 @@ __code __at (0x70) char op[15] = {'C','A','R',':','@','[',',',']','\n'};
 void Car1(void){
 	SemaphoreWait(sem);
 	
-	__critical{
+	EA=0;
 		SemaphoreWait(spotsSync);
 		if(spots[0]=='X') {
 			spots[0] = '1';
@@ -25,11 +25,11 @@ void Car1(void){
 			spots[1] = '1';
 		}
 		SemaphoreSignal(spotsSync);
-	}
+	EA=1;
 
 	delay(7);
 	
-	__critical{
+	EA=0;
 		SemaphoreWait(spotsSync);
 		if(spots[0]=='1') {
 			spots[0] = 'X';
@@ -37,7 +37,7 @@ void Car1(void){
 			spots[1] = 'X';
 		}
 		SemaphoreSignal(spotsSync);
-	}
+	EA=1;
 
 	SemaphoreSignal(sem);
 
@@ -48,7 +48,7 @@ void Car1(void){
 void Car2(void){
 	SemaphoreWait(sem);
 	
-	__critical{
+	EA=0;
 		SemaphoreWait(spotsSync);
 		if(spots[0]=='X') {
 			spots[0] = '2';
@@ -56,11 +56,11 @@ void Car2(void){
 			spots[1] = '2';
 		}
 		SemaphoreSignal(spotsSync);
-	}
+	EA=1;
 
 	delay(6);
 	
-	__critical{
+	EA=0;
 		SemaphoreWait(spotsSync);
 		if(spots[0]=='2') {
 			spots[0] = 'X';
@@ -68,7 +68,7 @@ void Car2(void){
 			spots[1] = 'X';
 		}
 		SemaphoreSignal(spotsSync);
-	}
+	EA=1;
 
 	SemaphoreSignal(sem);
 
@@ -79,7 +79,7 @@ void Car2(void){
 void Car3(void){
 	SemaphoreWait(sem);
 	
-	__critical{
+	EA=0;
 		SemaphoreWait(spotsSync);
 		if(spots[0]=='X') {
 			spots[0] = '3';
@@ -87,11 +87,11 @@ void Car3(void){
 			spots[1] = '3';
 		}
 		SemaphoreSignal(spotsSync);
-	}
+	EA=1;
 
 	delay(5);
 	
-	__critical{
+	EA=0;
 		SemaphoreWait(spotsSync);
 		if(spots[0]=='3') {
 			spots[0] = 'X';
@@ -99,7 +99,7 @@ void Car3(void){
 			spots[1] = 'X';
 		}
 		SemaphoreSignal(spotsSync);
-	}
+	EA=1;
 
 	SemaphoreSignal(sem);
 
@@ -110,7 +110,7 @@ void Car3(void){
 void Car4(void){
 	SemaphoreWait(sem);
 	
-	__critical{
+	EA=0;
 		SemaphoreWait(spotsSync);
 		if(spots[0]=='X') {
 			spots[0] = '4';
@@ -118,11 +118,11 @@ void Car4(void){
 			spots[1] = '4';
 		}
 		SemaphoreSignal(spotsSync);
-	}
+	EA=1;
 
 	delay(7);
 	
-	__critical{
+	EA=0;
 		SemaphoreWait(spotsSync);
 		if(spots[0]=='4') {
 			spots[0] = 'X';
@@ -130,7 +130,7 @@ void Car4(void){
 			spots[1] = 'X';
 		}
 		SemaphoreSignal(spotsSync);
-	}
+	EA=1;
 
 	SemaphoreSignal(sem);
 
@@ -141,7 +141,7 @@ void Car4(void){
 void Car5(void){
 	SemaphoreWait(sem);
 	
-	__critical{
+	EA=0;
 		SemaphoreWait(spotsSync);
 		if(spots[0]=='X') {
 			spots[0] = '5';
@@ -149,11 +149,11 @@ void Car5(void){
 			spots[1] = '5';
 		}
 		SemaphoreSignal(spotsSync);
-	}
+	EA=1;
 
 	delay(3);
 	
-	__critical{
+	EA=0;
 		SemaphoreWait(spotsSync);
 		if(spots[0]=='5') {
 			spots[0] = 'X';
@@ -161,7 +161,7 @@ void Car5(void){
 			spots[1] = 'X';
 		}
 		SemaphoreSignal(spotsSync);
-	}
+	EA=1;
 
 	SemaphoreSignal(sem);
 
@@ -189,7 +189,7 @@ void Consumer(void) {
 }
 
 void main(void) {
-	__critical{
+	EA=0;
 		head = 0;
 		tail = 0;
 		spots[0] = spots[1] = 'X';
@@ -198,7 +198,7 @@ void main(void) {
 		SemaphoreCreate(empty, 16);
 		SemaphoreCreate(sem,2);
 		SemaphoreCreate(spotsSync,1);
-	}
+	EA=1;
 	
 	ThreadCreate(Car1);
 	do{ delay(2); } while(bitmap==0x0F);

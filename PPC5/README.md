@@ -251,20 +251,16 @@ When **now** is 09 and **cnt** is 02, Car 3 and 4 are parking at spot 0 and 1 re
 
 ![](./screenshot1.jpg)
 
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 Screenshot2:  
 *main* calls ```Consumer()``` and is printing results to UART. (Only thread 0 is running now)
 
 ![](./screenshot2.jpg)
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 Screenshot3:  
 After printing, *main* calls ```ThreadExit()``` and the program enters an infinite loop.  
 
 ![](./screenshot3.jpg)
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 Screenshot4:  
 The output of UART, since the delay time is fixed, this result should be consistent.  
 

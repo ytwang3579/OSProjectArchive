@@ -1,0 +1,12 @@
+Script started on 2020-01-16 19:05:45+0800
+]0;ytwang@ytwang-cs-nthu: ~/OSProject/PPC5[01;32mytwang@ytwang-cs-nthu[00m:[01;34m~/OSProject/PPC5[00m$ uname -a
+Linux ytwang-cs-nthu 5.0.0-37-generic #40~18.04.1-Ubuntu SMP Thu Nov 14 12:06:39 UTC 2019 x86_64 x86_64 x86_64 GNU/Linux
+]0;ytwang@ytwang-cs-nthu: ~/OSProject/PPC5[01;32mytwang@ytwang-cs-nthu[00m:[01;34m~/OSProject/PPC5[00m$ uname -a[4Pexitsdcc -o testparking.hex testparking.rel preemptive.rel[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cc testparking.c[K[1Ppreemptive.c[9Pudo rebootdcc -c preemptive.ctestparking.c
+testparking.c:195: warning 158: overflow in implicit constant conversion
+]0;ytwang@ytwang-cs-nthu: ~/OSProject/PPC5[01;32mytwang@ytwang-cs-nthu[00m:[01;34m~/OSProject/PPC5[00m$ sdcc -c testparking.c[13Puname -a[4Pexitsdcc -o testparking.hex testparking.rel preemptive.rel[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cc testparking.c[K[1Ppreemptive.c
+preemptive.c:86: warning 85: in function ThreadCreate unreferenced function argument : 'fp'
+]0;ytwang@ytwang-cs-nthu: ~/OSProject/PPC5[01;32mytwang@ytwang-cs-nthu[00m:[01;34m~/OSProject/PPC5[00m$ sdcc -c preemptive.ctestparking.c[13Puname -asdcc -c testparking.c[1Ppreemptive.c[Ksdcc -c preemptive.ctestparking.c[13Puname -a[4Pexitsdcc -o testparking.hex testparking.rel preemptive.rel
+]0;ytwang@ytwang-cs-nthu: ~/OSProject/PPC5[01;32mytwang@ytwang-cs-nthu[00m:[01;34m~/OSProject/PPC5[00m$ exit
+exit
+
+Script done on 2020-01-16 19:06:09+0800

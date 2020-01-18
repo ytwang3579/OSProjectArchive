@@ -11,7 +11,7 @@ __data __at (0x39) char tmp2;
 __data __at (0x3A) char checkAlive[MAXTHREADS];
 __data __at (0x3E) unsigned char cnt;
 __data __at (0x3F) unsigned char now;
-__data __at (0x2C) unsigned char delayid[4];
+__data __at (0x2C) unsigned char delayid[MAXTHREADS];
 
 #define SAVESTATE \
 	{ \
@@ -112,6 +112,9 @@ void ThreadExit(void) {
 		__endasm; 
 		sp[curThread] = 0;
 		bitmap &= ~(1<<curThread);
+		if(bitmap == 0){
+			while(1){};
+		}
 		do {
 			curThread = (curThread == MAXTHREADS-1) ? 0 : curThread+1;
 			if(bitmap & checkAlive[curThread]) break;

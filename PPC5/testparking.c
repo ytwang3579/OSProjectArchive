@@ -278,12 +278,7 @@ void Consumer(void) {
 
 void main(void) {
 	EA=0;
-//		head = 0;
-//		tail = 0;
 		spots[0] = spots[1] = 'X';
-//		SemaphoreCreate(mutex, 1);
-//		SemaphoreCreate(full, 0);
-//		SemaphoreCreate(empty, 16);
 		SemaphoreCreate(sem,2);
 		SemaphoreCreate(spotsSync,1);
 	EA=1;

@@ -1,8 +1,7 @@
 # course slides & personal questions
 *.pdf
-*.jpg
-*.png
 *.txt 
+*.zip
 
 # intermediate output files
 *.asm 

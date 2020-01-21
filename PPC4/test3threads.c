@@ -13,7 +13,7 @@ __data __at (0x29) char num;
 void Producer1(void){
 	ch = 'A';
 	while (1) {
-		//while(empty==0);
+
 		SemaphoreWait(empty);
 		
 		__critical{
@@ -32,7 +32,7 @@ void Producer1(void){
 void Producer2(void){
 	num = '0';
 	while (1) {
-		//while(empty==0);
+
 		SemaphoreWait(empty);
 		
 		__critical{
@@ -81,8 +81,8 @@ void main(void) {
 		SemaphoreCreate(full, 0);
 		SemaphoreCreate(empty, 3);
 	}
-	ThreadCreate(Producer1);
 	ThreadCreate(Producer2);
+	ThreadCreate(Producer1);
 	Consumer();
 }
 
